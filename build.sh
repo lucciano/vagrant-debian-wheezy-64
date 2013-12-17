@@ -20,8 +20,8 @@ set -o errexit
 
 # Configurations
 BOX="debian-wheezy-64"
-ISO_URL="http://cdimage.debian.org/debian-cd/7.1.0/amd64/iso-cd/debian-7.1.0-amd64-netinst.iso"
-ISO_MD5="80f498a1f9daa76bc911ae13692e4495"
+ISO_URL="http://cdimage.debian.org/debian-cd/7.3.0/amd64/iso-cd/debian-7.3.0-amd64-netinst.iso"
+ISO_MD5="72473e8a5e65b61acc7efde90d9f71d1"
 
 # location, location, location
 FOLDER_BASE=`pwd`
@@ -198,7 +198,7 @@ if ! VBoxManage showvminfo "${BOX}" >/dev/null 2>/dev/null; then
 
   # Forward SSH
   VBoxManage modifyvm "${BOX}" \
-    --natpf1 "guestssh,tcp,,2222,,22"
+    --natpf1 "guestssh,tcp,127.0.0.1,2222,,22"
 
   # Attach guest additions iso
   VBoxManage storageattach "${BOX}" \
