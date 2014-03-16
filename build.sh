@@ -20,8 +20,8 @@ set -o errexit
 
 # Configurations
 BOX="debian-wheezy-64"
-ISO_URL="http://cdimage.debian.org/debian-cd/7.3.0/amd64/iso-cd/debian-7.3.0-amd64-netinst.iso"
-ISO_MD5="72473e8a5e65b61acc7efde90d9f71d1"
+ISO_URL="http://cdimage.debian.org/debian-cd/7.4.0/amd64/iso-cd/debian-7.4.0-amd64-netinst.iso"
+ISO_MD5="e7e9433973f082a297793c3c5010b2c5"
 
 # location, location, location
 FOLDER_BASE=`pwd`
@@ -198,7 +198,7 @@ if ! VBoxManage showvminfo "${BOX}" >/dev/null 2>/dev/null; then
 
   # Forward SSH
   VBoxManage modifyvm "${BOX}" \
-    --natpf1 "guestssh,tcp,127.0.0.1,2222,,22"
+    --natpf1 "guestssh,tcp,127.0.0.1,2111,,22"
 
   # Attach guest additions iso
   VBoxManage storageattach "${BOX}" \
@@ -216,7 +216,7 @@ if ! VBoxManage showvminfo "${BOX}" >/dev/null 2>/dev/null; then
 
   # install virtualbox guest additions
   sleep 10
-  ssh -i "${FOLDER_BUILD}/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p2222 vagrant@127.0.0.1 "sudo mount /dev/cdrom /media/cdrom; sudo sh /media/cdrom/VBoxLinuxAdditions.run -- --force; sudo umount /media/cdrom; sudo shutdown -h now"
+  ssh -i "${FOLDER_BUILD}/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p2111 vagrant@127.0.0.1 "sudo mount /dev/cdrom /media/cdrom; sudo sh /media/cdrom/VBoxLinuxAdditions.run -- --force; sudo umount /media/cdrom; sudo shutdown -h now"
   echo -n "Waiting for machine to shut off "
   while VBoxManage list runningvms | grep "${BOX}" >/dev/null; do
     sleep 20
